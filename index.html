@@ -190,10 +190,9 @@ font-size:30px;
 
 <body>
 
-<audio id="bgmusic" loop preload="auto">
+<audio id="bgmusic" autoplay loop muted playsinline preload="auto">
 <source src="tumsehi.mp3" type="audio/mpeg">
 </audio>
-
 <div class="hearts"></div>
 
 <h1>Shlesha Day 🎂</h1>
@@ -276,17 +275,25 @@ document.getElementById("seconds").innerHTML = seconds;
 
 /* MUSIC START (WORKS ON IPHONE + ANDROID + WINDOWS) */
 
+/* MUSIC START (WORKS RELIABLY ON IPHONE + ANDROID + WINDOWS) */
+
 const music = document.getElementById("bgmusic");
 
-function startMusic(){
-    music.volume = 0.25;
-    music.play().catch(()=>{});
-    document.removeEventListener("click", startMusic);
-    document.removeEventListener("touchstart", startMusic);
+music.volume = 0.25;
+
+function enableSound(){
+
+music.muted = false;
+
+music.play().catch(()=>{});
+
+document.removeEventListener("click", enableSound);
+document.removeEventListener("touchstart", enableSound);
+
 }
 
-document.addEventListener("click", startMusic);
-document.addEventListener("touchstart", startMusic);
+document.addEventListener("click", enableSound);
+document.addEventListener("touchstart", enableSound);
 
 </script>
 
