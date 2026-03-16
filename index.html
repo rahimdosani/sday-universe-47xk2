@@ -18,11 +18,13 @@ margin:0;
 font-family:Poppins;
 color:white;
 text-align:center;
-height:100vh;
+min-height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+padding:20px;
+box-sizing:border-box;
 
 background:
 radial-gradient(circle at 20% 20%, #1a1a40, transparent),
@@ -35,42 +37,42 @@ radial-gradient(circle at 80% 30%, #2d1b69, transparent),
 
 h1{
 font-family:"Playfair Display";
-font-size:70px;
+font-size:64px;
 margin-bottom:10px;
 letter-spacing:2px;
 }
 
 .subtitle{
 opacity:0.8;
-margin-bottom:15px;
+margin-bottom:10px;
+font-size:18px;
 }
-
 
 /* TAP MESSAGE */
 
 .tap{
 opacity:0.6;
 font-size:14px;
-margin-bottom:25px;
+margin-bottom:30px;
 }
-
 
 /* COUNTDOWN */
 
 .countdown{
 display:flex;
-gap:40px;
+gap:30px;
 flex-wrap:wrap;
 justify-content:center;
+margin-bottom:40px;
 }
 
 .time-box{
 
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(12px);
-padding:30px;
+padding:25px;
 border-radius:20px;
-min-width:120px;
+min-width:110px;
 
 box-shadow:0 15px 40px rgba(0,0,0,0.5);
 
@@ -79,7 +81,7 @@ animation:heartbeat 2s infinite;
 }
 
 .time-box h2{
-font-size:45px;
+font-size:42px;
 margin:0;
 }
 
@@ -95,11 +97,36 @@ opacity:0.8;
 }
 
 
+/* DAILY MESSAGE SECTION */
+
+.daily-message{
+max-width:500px;
+margin-top:20px;
+margin-bottom:30px;
+}
+
+.daily-message h2{
+font-size:24px;
+margin-bottom:10px;
+}
+
+.quote{
+font-style:italic;
+font-size:16px;
+opacity:0.9;
+margin-bottom:8px;
+}
+
+.song{
+font-size:14px;
+opacity:0.6;
+}
+
 /* BIRTHDAY MESSAGE */
 
 .birthday{
 display:none;
-font-size:40px;
+font-size:36px;
 margin-top:30px;
 animation:fadeIn 2s forwards;
 }
@@ -113,8 +140,9 @@ to{opacity:1;}
 /* FOOTER TEXT */
 
 .footer{
-margin-top:40px;
+margin-top:30px;
 opacity:0.7;
+font-size:14px;
 }
 
 
@@ -161,25 +189,33 @@ animation-delay:10s;
 }
 
 
-/* MOBILE */
+/* RESPONSIVE DESIGN */
 
-@media(max-width:600px){
+@media(max-width:768px){
 
 h1{
-font-size:45px;
+font-size:48px;
+}
+
+.subtitle{
+font-size:16px;
 }
 
 .countdown{
-gap:20px;
+gap:18px;
 }
 
 .time-box{
-min-width:90px;
-padding:20px;
+min-width:80px;
+padding:18px;
 }
 
 .time-box h2{
-font-size:30px;
+font-size:28px;
+}
+
+.daily-message h2{
+font-size:20px;
 }
 
 }
@@ -191,8 +227,9 @@ font-size:30px;
 <body>
 
 <audio id="bgmusic" autoplay loop muted playsinline preload="auto">
-<source src="tumsehi.mp3" type="audio/mpeg">
+<source src="yellow.mp3" type="audio/mpeg">
 </audio>
+
 <div class="hearts"></div>
 
 <h1>Shlesha Day 🎂</h1>
@@ -228,6 +265,20 @@ Tap anywhere to start the universe ✨
 </div>
 
 </div>
+
+
+<!-- MESSAGES FOR MY UNIVERSE -->
+
+<div class="daily-message">
+
+<h2>Messages For My Universe ✨</h2>
+
+<p id="dailyQuote" class="quote"></p>
+
+<p id="dailySong" class="song"></p>
+
+</div>
+
 
 <div class="birthday" id="birthdayMessage">
 Happy Birthday Shlesha 💖
@@ -273,9 +324,7 @@ document.getElementById("seconds").innerHTML = seconds;
 },1000);
 
 
-/* MUSIC START (WORKS ON IPHONE + ANDROID + WINDOWS) */
-
-/* MUSIC START (WORKS RELIABLY ON IPHONE + ANDROID + WINDOWS) */
+/* MUSIC START */
 
 const music = document.getElementById("bgmusic");
 
@@ -284,7 +333,6 @@ music.volume = 0.25;
 function enableSound(){
 
 music.muted = false;
-
 music.play().catch(()=>{});
 
 document.removeEventListener("click", enableSound);
@@ -294,6 +342,47 @@ document.removeEventListener("touchstart", enableSound);
 
 document.addEventListener("click", enableSound);
 document.addEventListener("touchstart", enableSound);
+
+
+/* DAILY MESSAGE SYSTEM */
+
+const messages = [
+
+{
+quote:"Some universes are made of stars. Mine just happens to be you.",
+song:"Today's Song: Tum Se Hi – Mohit Chauhan"
+},
+
+{
+quote:"Every universe has a center. Mine just happens to be you.",
+song:"Today's Song: Yellow"
+},
+
+{
+quote:"Some people quietly enter your life and change your entire universe.",
+song:"Today's Song: Yellow – Coldplay"
+},
+
+{
+quote:"The most beautiful moments are the ones we never planned.",
+song:"Today's Song: Ishq – Lost Stories"
+},
+
+{
+quote:"Some memories feel like home, no matter how much time passes.",
+song:"Today's Song: Raanjhanaa – A.R. Rahman"
+}
+
+];
+
+const today = new Date().getDate();
+const messageIndex = today % messages.length;
+
+document.getElementById("dailyQuote").innerText =
+messages[messageIndex].quote;
+
+document.getElementById("dailySong").innerText =
+messages[messageIndex].song;
 
 </script>
 
